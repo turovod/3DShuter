@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
-[AddComponentMenu("Control Script/FPS Input")]
+[RequireComponent(typeof(CharacterController))] // Проверка наличия компонента CharacterController
+[AddComponentMenu("Control Script/FPS Input")]  // Добавление в меню скрипта FPS Input
 
 public class FPSInput : MonoBehaviour
 {
@@ -18,11 +18,11 @@ public class FPSInput : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * speed;
         float deltaZ = Input.GetAxis("Vertical") * speed;
 
-        Vector3 movement = new Vector3(deltaX, 0, deltaZ);
+        Vector3 movement = new Vector3(deltaX, gravity, deltaZ);
 
-        movement = Vector3.ClampMagnitude(movement, speed);
-        movement.y = gravity;
-        movement *= Time.deltaTime;
+        movement = Vector3.ClampMagnitude(movement, speed) * Time.deltaTime;
+        //movement.y = gravity;
+        //movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
 
         _charController.Move(movement);

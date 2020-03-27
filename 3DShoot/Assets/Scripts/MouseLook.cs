@@ -18,7 +18,7 @@ public class MouseLook : MonoBehaviour
         Rigidbody body = GetComponent<Rigidbody>();
         if (body != null)
         {
-            body.freezeRotation = true;
+            body.freezeRotation = true; // Предотвращение вращения игрока при столкновениях
         }
     }
 
