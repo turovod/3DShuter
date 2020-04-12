@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
+    public float speed = 10f;
+    public int damage = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,18 @@ public class Fireball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(speed * Time.deltaTime, 0, 0);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerCharacter player = GetComponent<PlayerCharacter>();
+
+        if (player != null)
+        {
+            Debug.Log("Player hit");
+        }
+
+        Destroy(this.gameObject);
     }
 }

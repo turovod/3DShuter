@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class WanderingAI : MonoBehaviour
 {
+    [SerializeField] private GameObject fireballPrefab;
+
     public float speed = 3f;
     public float obstacleRange = 5f;
 
     private bool _alive;
+
+    private GameObject _fireball;
 
     private void Start()
     {
@@ -27,7 +31,17 @@ public class WanderingAI : MonoBehaviour
 
             if (Physics.SphereCast(ray, 0.75f, out hit))
             {
-                if (hit.distance < obstacleRange)
+                GameObject hitObject = hit.transform.gameObject;
+
+                if (hitObject.GetComponent<PlayerCharacter>())
+                {
+                    if (_fireball == null)
+                    {
+                        _fireball = Instantiate(fireballPrefab);
+                        _fireball.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
+                    }
+                }
+                else if (hit.distance < obstacleRange)
                 {
                     float angle = Random.Range(-110, 110);
 
